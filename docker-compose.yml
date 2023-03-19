@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+    php:
+        container_name: test-php
+        image: php_app:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/var/www/html/site
+        ports:
+            - 6001:6001
+    nginx:
+        container_name: test-nginx
+        image: nginx:latest
+        volumes:
+            - ./:/var/www/html/site
+            - ./site.conf:/etc/nginx/conf.d/site.conf:ro
+        ports:
+            - 80:80

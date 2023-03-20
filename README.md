@@ -8,5 +8,5 @@ Note : this project using laravel-web-socket which is replacment of pusher with 
 - Go to the project folder 
 - COPY .env-example file to .env and SET application keyword with php artisan key:generate
 - SET pusher credentials with random data
-- then run docker-compose up
+- then run docker-compose up --build
 - Browse site.local.com and wait for new updates :) 

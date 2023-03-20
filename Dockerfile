@@ -13,9 +13,6 @@ RUN apt-get install nodejs
 RUN apt-get -y install cron
 RUN apt install -y --no-install-recommends supervisor
 
-#RUN touch /var/run/supervisor.sock
-
-#RUN chmod 777 /var/run/supervisor.sock
 RUN service supervisor restart
 
 COPY ./app_supervisor_conf.conf /etc/supervisor/conf.d/app_supervisor_conf.conf
@@ -27,13 +24,12 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN composer self-update
 WORKDIR /var/www/html/site
 COPY . .
+
 RUN echo "* * * * * root cd /var/www/html/site && php artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab;
 RUN touch /var/log/cron.log
 
-RUN npm install --force
-RUN npm run build
 EXPOSE 9000
 EXPOSE 6001
 RUN echo user=root >>  /etc/supervisor/supervisord.conf
-CMD bash -c "composer install && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n "
+CMD bash -c "npm install --force && npm run build && composer install && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n "
 

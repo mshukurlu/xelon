@@ -14,12 +14,5 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/',[\App\Http\Controllers\Frontend\MonitoringController::class,'index']);
-Route::get('/test',function (){
-    event(new App\Events\MonitorBankSystem('ok'));
-});
-
-
-Route::get('test2',function(){
-        return Cache::get('monitor_last_update_time');
-});
+Route::get('/',
+    [\App\Http\Controllers\Frontend\MonitoringController::class,'index']);

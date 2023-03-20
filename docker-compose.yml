@@ -10,6 +10,8 @@ services:
             - ./:/var/www/html/site
         ports:
             - 6001:6001
+        env_file:
+            -  .docker_env
     nginx:
         container_name: test-nginx
         image: nginx:latest
